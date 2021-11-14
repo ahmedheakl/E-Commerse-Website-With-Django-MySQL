@@ -1,0 +1,95 @@
+{% extends 'auctions/layout.html'%}
+{% block body%}
+    {% if message %}
+        <div class="alert alert-danger">{{ message }}</div>
+    {% endif %}
+<div class="jumbotron text-center" style="padding: 3% 10%;">
+    <h2>Listing: {{listing.title}}</h2>
+    <img src="{{listing.image_link}}" class="img-fluid" style='width:1080px'>
+    <div class="card">
+        <div class="card-body" style='text-align:center;'>
+            {{listing.description}}
+        </div>
+    </div>
+    <br>
+    <br>
+    <p class="lead" align="justify"><strong>Description : </strong> {{listing.description}}</p>  
+    <p class="lead" align="justify"><strong>Category : </strong>{{listing.category}}</p>
+    {% if listing.current %}
+        <p class="lead" align="justify"><strong>Current Bid Price : </strong>{{listing.currentbid}}$</p>
+    {% else %}
+        <p class="lead" align="justify"><strong>Current Bid Price : </strong>{{listing.startbid}}$</p>
+    {%endif%}
+    <p class="lead" align="justify"><strong>Seller : </strong>{{listing.creator}}</p>
+    <p class="lead" align="justify"><strong>Created on : </strong>{{listing.dateofcreation}}</p>
+    <br>
+    {% if added %}
+        <!-- <input type="button" class="btn btn-danger btn-lg" name="remove" placeholder="Remove from Watchlist"> -->
+        <a href="{% url 'addtowatchlist' listing.id %}" class="btn btn-danger btn-lg" name="remove">Remove from Watchlist</a>
+    {% else %}
+        <!-- <input type="button" class="btn btn-success btn-lg" name="addto" placeholder="Add to Watchlist"> -->
+        <a href="{% url 'addtowatchlist' listing.id %}" class="btn btn-success btn-lg" name="addto">Add to Watchlist</a>
+    {% endif %}
+    {% if user.username != product.creator %}
+        <p class="lead" align="justify"><strong>Place your Bid : </strong></p>
+        <form action="{% url 'listing' listing.id %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control" type="text" name="newbid" placeholder="Your Bid">
+            </div>
+            <p align="justify"><input class="btn btn-primary" type="submit" value="Submit"></p>
+        </form>
+    {% endif %}
+    <!-- Displaying comments-->
+    <div class="jumbotron text-center">
+
+        <!-- Title -->
+        <h2 class="card-title h2">COMMENTS</h2>
+        <!-- Subtitle -->
+        <p class="lead my-4">These are the comments left by other users.</p>
+    
+        {% if comments %}
+
+            {% for comment in comments %}
+                <br>
+                <!-- Grid row -->
+                <div class="card text-left">
+                <h5 class="card-header h5">{{comment.user}}</h5>
+                <div class="card-body">
+                    <!-- <h5 class="card-title">Rating :</h5> -->
+                    <p class="lead">{{comment.comment}}</p>
+                    <p class="card-text">{{comment.createdDate}}</p>
+                </div>
+                </div>
+            {% endfor %}
+
+        {% else %}
+            <div class="text-center">
+                <!-- Text -->
+                <br> <br> 
+                <p class="lead">No Comments Found</p> 
+            </div>
+        {% endif %}
+    </div>
+    <!-- End displaying comments -->
+    
+    {% if user.username != product.creator %}
+        <!-- Displaying comments-->
+        <div class="jumbotron text-center">
+
+            <!-- Title -->
+            <h2 class="card-title h2">ADD COMMENT</h2>
+            
+            <form action="{% url 'addcomment' listing.id %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <textarea class="form-control" name="comment" rows="4" placeholder="Your Comment"></textarea>
+                </div>
+                <p align="justify"><input class="btn btn-primary" type="submit" value="Submit"></p>
+            </form>
+        </div>
+        <!-- End add comments -->
+    {% endif %}
+</div> 
+
+{%endblock%}

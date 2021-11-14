@@ -1,0 +1,43 @@
+{% extends 'auctions/layout.html'%}
+
+{% block body%}
+
+<form actions="{% url 'newListing' %}" method= 'post'>
+  {% csrf_token %}
+  <label for="titleinput" class="form-label">Enter the label</label>
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" id="titleinput" placeholder="Enter the title" name='title'>
+  </div>
+
+  <div class="input-group">
+    <span class="input-group-text">Description</span>
+    <textarea name='description' class="form-control" aria-label="With textarea"></textarea>
+  </div>
+  
+  <label for="basic-url" class="form-label">The image URL</label>
+  <div class="input-group mb-3">
+    <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+    <input name='image_link' type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+  </div>
+
+  <label for="startbid-input" class="form-label">Add the Start Bid</label>
+  <div class="input-group mb-3">
+    <span class="input-group-text">$</span>
+    <input name = 'startbid' id='startbid-input' type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+    <span class="input-group-text">.00</span>
+  </div>
+
+  <div class="form-group">
+    <select class="form-control" name="category" placeholder="Category" required>
+        <option value="">Choose a Category</option>
+        {% for category in categories %}
+        <option value="{{category}}">{{category}}</option>
+        {% endfor %}
+    </select>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Add New Listing</button>
+  </div>
+</form>
+
+{% endblock %}
