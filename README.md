@@ -20,6 +20,8 @@ This a single-application (named auctions) project implemented using django fram
 Here are some samples for items images viewing, bids and prices, comments, listings process:
 
 <p align='center'>
-  <img>
-  
+    <img width=400 src="https://github.com/ahmedheakl/E-Commerse-Website-With-Django-MySQL/blob/main/imgs/auctions_preview_1.png">
+    <img width=400 src="https://github.com/ahmedheakl/E-Commerse-Website-With-Django-MySQL/blob/main/imgs/auctions_preview_2.png">
+    <img width=400 src="https://github.com/ahmedheakl/E-Commerse-Website-With-Django-MySQL/blob/main/imgs/auctions_preview_3.png">
+    <img width=400 src="https://github.com/ahmedheakl/E-Commerse-Website-With-Django-MySQL/blob/main/imgs/auctions_preview_4.png">  
 </p>
